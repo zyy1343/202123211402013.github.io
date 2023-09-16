@@ -56,6 +56,7 @@
  * visible.
  */
 
+
 WebGLUtils = function() {
 
     /**
@@ -73,6 +74,7 @@ WebGLUtils = function() {
         '</div>' +
         '</td></tr></table>';
     };
+
     
     /**
      * Mesasge for getting a webgl browser
