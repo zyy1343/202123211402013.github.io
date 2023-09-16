@@ -1,8 +1,8 @@
 "use strict";
-//
+
 var gl;
 var points;
-
+//
 window.onload = function init(){
 	var canvas = document.getElementById( "triangle-canvas" );
 	gl = WebGLUtils.setupWebGL( canvas );
