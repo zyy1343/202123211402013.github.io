@@ -3,7 +3,6 @@
 var gl;
 var points;
 
-
 window.onload = function init(){
 	var canvas = document.getElementById( "square-canvas" );
 	gl = WebGLUtils.setupWebGL( canvas );
@@ -27,7 +26,6 @@ window.onload = function init(){
 		//0.0, 0.0, 1.0, 1.0,
 		//1.0, 0.0, 1.0, 1.0
 	];
-
 	// Configure WebGL
 	gl.viewport( 0, 0, canvas.width/2, canvas.height/2 );
 	gl.clearColor( 0.0, 0.0, 1.0, 1.0 );
