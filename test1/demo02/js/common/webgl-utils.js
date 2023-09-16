@@ -30,6 +30,7 @@
  */
 
 
+
 /**
  * @fileoverview This file contains functions every webgl program will need
  * a version of one way or another.
