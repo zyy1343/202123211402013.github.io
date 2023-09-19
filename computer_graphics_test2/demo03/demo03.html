@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>实验二-剖分线框三角形</title>
+    <script id="vertex-shader" type="x-shader/x-vertex">
+      attribute vec4 vPosition;
+      void main(){
+      	gl_Position = vPosition;
+      }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+      precision mediump float;
+      void main(){
+      	gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
+      }
+    </script>
+
+    <script type="text/javascript" src="../js/common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../js/common/initShaders.js"></script>
+    <script type="text/javascript" src="../js/common/gl-matrix-min.js"></script>
+
+    <script
+      type="text/javascript"
+      src="../js/ch02/gasket-triangles-2.js"
+    ></script>
+  </head>
+
+  <body onload="initTriangles_2()">
+    <div>
+      <h2>Sierpinski Gasket in 3D</h2>
+      </div> 
+      <canvas id="gl-canvas" width="512" height="512"
+        >你的浏览器不支持HTML5 canvas元素</canvas
+      >
+      <div align="center" style="width: 512px;margin-top: 20px;">
+        <input id="layer_2" type="text" placeholder="请输入剖分的层次(0-7)" />
+        <!-- <button onclick="submit()">确定</button> -->
+        <input type="button" onclick="submit_2()" value="确认更改" />
+      </div>
+    </div>
+  </body>
+</html>
