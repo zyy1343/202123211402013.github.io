@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <title>缩放旋转立方体</title>
+    <style>
+      body {
+        perspective: 1000px;
+      }
+      button {
+        width: 100px;
+        height: 40px;
+      }
+      #rtcb-canvas {
+        /* margin: 0 auto; */
+        margin-left: 600px;
+      }
+
+      /* X轴缩放 */
+      .scaleX {
+        animation: scaleX 1s infinite alternate;
+      }
+      @keyframes scaleX {
+        from {
+          transform: translateX(0) scale(1);
+        }
+        to {
+          transform: translateX(300px) scale(1.5);
+        }
+      }
+
+      /* Y轴缩放 */
+      .scaleY {
+        animation: scaleY 1s infinite alternate;
+      }
+      @keyframes scaleY {
+        from {
+          transform: translateY(0) scale(1);
+        }
+        to {
+          transform: translateY(300px) scale(1.5);
+        }
+      }
+
+      /* Z轴平移 */
+      .scaleZ {
+        animation: scaleZ 1s infinite alternate;
+      }
+      @keyframes scaleZ {
+        from {
+          transform: translateZ(0) rotateX(-10deg) rotateY(10deg) scale(1);
+        }
+        to {
+          transform: translateZ(-300px) rotateX(-10deg) rotateY(10deg) scale(2);
+        }
+      }
+
+      /* 恢复原状 */
+      .pausedMove {
+        animation-play-state: paused;
+      }
+    </style>
+
+    <script id="rtvshader" type="x-shader/x-vertex">
+      attribute vec4 vPosition;
+      attribute vec4 vColor;
+      varying vec4 fColor;
+
+      uniform vec3 theta;
+
+      void main()
+      {
+      	//compute the sins and cos of theta for each of the three axis in one computation
+      	vec3 angles = radians( theta );
+      	vec3 cost = cos( theta );
+      	vec3 sint = sin( theta );
+
+      	mat4 rx = mat4(  1.0,  0.0,  0.0, 0.0,
+      					 0.0,  cost.x,  sint.x, 0.0,
+      					 0.0,  -sint.x,  cost.x, 0.0,
+      					 0.0,  0.0,  0.0, 1.0
+      					 );
+
+      	mat4 ry = mat4(  cost.y,  0.0, -sint.y,  0.0,
+      					 0.0,  1.0,  0.0,  0.0,
+      					 sint.y,  0.0,  cost.y,  0.0,
+      					 0.0,  0.0,  0.0,  1.0
+      					 );
+
+      	mat4 rz = mat4(  cost.z,  sint.z,  0.0,  0.0,
+      					 -sint.z,  cost.z,  0.0,  0.0,
+      					 0.0,  0.0,  1.0,  0.0,
+      					 0.0,  0.0,  0.0,  1.0
+      					 );
+
+      	fColor = vColor;
+      	gl_Position = rz * ry * rx * vPosition;
+      	gl_Position.z = -gl_Position.z;
+      }
+    </script>
+
+    <script id="rtfshader" type="x-shader/x-fragment">
+      precision mediump float;
+      varying vec4 fColor;
+
+      void main()
+      {
+      	gl_FragColor = fColor;
+      }
+    </script>
+    <script type="text/javascript" src="../js/common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../js/common/initShaders.js"></script>
+    <script type="text/javascript" src="../js/common/gl-matrix-min.js"></script>
+
+    <script type="text/javascript" src="../js/ch04/rotcube.js"></script>
+  </head>
+
+  <body>
+    <h1>缩放旋转立方体</h1>
+    <table>
+      <tr>
+        <td><button id="xbutton">Rotate X</button></td>
+        <td><button id="ybutton">Rotate Y</button></td>
+        <td><button id="zbutton">Rotate Z</button></td>
+      </tr>
+      <tr>
+        <td><button id="scaleX">X轴缩放</button></td>
+        <td><button id="scaleY">Y轴缩放</button></td>
+        <td><button id="scaleZ">Z轴缩放</button></td>
+      </tr>
+      <tr>
+        <td><button id="paused">恢复原状</button></td>
+      </tr>
+    </table>
+
+    <canvas id="rtcb-canvas" width="600" height="600">
+      你的浏览器不支持HTML5 canvas元素
+    </canvas>
+
+    <script type="text/javascript">
+      // X轴缩放
+      let scaleX = document.getElementById("scaleX");
+      scaleX.addEventListener("click", function () {
+        let sc = document.getElementById("rtcb-canvas");
+        sc.className = "scaleX";
+      });
+      // Y轴缩放
+      let scaleY = document.getElementById("scaleY");
+      scaleY.addEventListener("click", function () {
+        let sc = document.getElementById("rtcb-canvas");
+        sc.className = "scaleY";
+      });
+      // Z轴缩放
+      let scaleZ = document.getElementById("scaleZ");
+      scaleZ.addEventListener("click", function () {
+        let sc = document.getElementById("rtcb-canvas");
+        sc.className = "scaleZ";
+      });
+      // 恢复原状
+      let paused = document.getElementById("paused");
+      paused.addEventListener("click", function () {
+        let stop = document.getElementById("rtcb-canvas");
+        stop.className = "pausedMove";
+      });
+    </script>
+  </body>
+</html>
