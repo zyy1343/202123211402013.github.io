@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>火柴人移动示例</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* 恢复原状 */
+      /* .pausedMove {
+        animation-play-state: paused;
+      } */
+
+      .title {
+        margin: 30px 0 30px 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .title p {
+        margin-left: 20px;
+        align-self: flex-end;
+      }
+
+      table {
+        margin-left: 20px;
+        margin-bottom: 30px;
+      }
+
+      button {
+        margin-bottom: 10px;
+        margin-right: 20px;
+        padding: 5px;
+        height: 30px;
+      }
+
+      canvas {
+        margin-left: 20px;
+      }
+
+      /* X轴平移 */
+      .transformX {
+        animation: moveX 2s infinite linear;
+      }
+      @keyframes moveX {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(600px);
+        }
+      }
+
+      /* Y轴平移 */
+      .transformY {
+        animation: moveY 2s infinite linear;
+      }
+      @keyframes moveY {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(300px);
+        }
+      }
+
+      /* 恢复原状 */
+      .pausedMove {
+        animation-play-state: paused;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="title">
+      <h1>不太聪明的火柴人</h1>
+      <p>点火柴人会有小惊喜~</p>
+    </div>
+
+    <table>
+      <tr>
+        <td><button id="transformX">X轴平移动画</button></td>
+        <td><button id="transformY">Y轴平移动画</button></td>
+        <td><button id="paused">恢复原状</button></td>
+      </tr>
+      <tr>
+        <td><button id="moveButton">平移火柴人</button></td>
+        <td><button id="rotateButton">旋转火柴人</button></td>
+      </tr>
+      <tr>
+        <td><button id="fastMoveButton">快速平移火柴人</button></td>
+        <td><button id="fastRotateButton">快速旋转火柴人</button></td>
+      </tr>
+    </table>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <!-- <button id="paused">恢复原状</button> -->
+    <!-- <script type="text/javascript">
+      // 恢复原状
+      let paused = document.getElementById("paused");
+      paused.addEventListener("click", function () {
+        let stop = document.getElementById("myCanvas");
+        stop.className = "pausedMove";
+      });
+    </script> -->
+    <script type="text/javascript">
+      // X轴平移
+      let transformX = document.getElementById("transformX");
+      transformX.addEventListener("click", function () {
+        let tf = document.getElementById("myCanvas");
+        tf.className = "transformX";
+      });
+      // Y轴平移
+      let transformY = document.getElementById("transformY");
+      transformY.addEventListener("click", function () {
+        let tf = document.getElementById("myCanvas");
+        tf.className = "transformY";
+      });
+      // 恢复原状
+      let paused = document.getElementById("paused");
+      paused.addEventListener("click", function () {
+        let stop = document.getElementById("myCanvas");
+        stop.className = "pausedMove";
+      });
+    </script>
+    <script type="text/javascript" src="../js/common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../js/common/initShaders.js"></script>
+    <script type="text/javascript" src="../js/common/gl-matrix-min.js"></script>
+    <script src="../js/ch03/script.js"></script>
+    <!-- <script src="./move.js"></script> -->
+    <script src="../js/ch03/jquery-3.6.0.min.js"></script>
+  </body>
+</html>

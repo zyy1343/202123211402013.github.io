@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>旋转正方形</title>
+    <script id="rot-v-shader" type="x-shader/x-vertex">
+      attribute vec4 vPosition;
+      uniform float theta;
+
+      void main()
+      {
+      	float u = cos( theta );
+      	float v = sin( theta );
+
+      	gl_Position.x = vPosition.x * u - vPosition.y * v;
+      	gl_Position.y = vPosition.x * v + vPosition.y * u;
+      	gl_Position.z = 0.0;
+      	gl_Position.w = 1.0;
+      }
+    </script>
+
+    <script id="rot-f-shader" type="x-shader/x-fragment">
+      precision mediump float;
+
+      void main()
+      {
+      	gl_FragColor = vec4( 0.0, 1.0, 1.0, 1.0 );
+      }
+    </script>
+    <script
+      type="text/javascript"
+      src="../js/ch03/jquery-3.6.0.min.js"
+    ></script>
+    <script type="text/javascript" src="../js/common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../js/common/initShaders.js"></script>
+    <script type="text/javascript" src="../js/common/gl-matrix-min.js"></script>
+    <script type="text/javascript" src="../js/ch03/rotsquare.js"></script>
+    <!-- <script type="text/javascript" src="../js/ch03/rotsquareslider.js"></script> -->
+  </head>
+
+  <body onload="initRotSquare()">
+    <div align="center">
+      <canvas id="rot-canvas" width="512" height="512"
+        >你的浏览器不支持HTML5 canvas元素</canvas
+      ><br /><br /><br /><br />
+
+      <div
+        style="
+          width: 400px;
+          height: 10px;
+          background-color: #555555;
+          border-radius: 10px;
+        "
+      >
+        <div
+          id="jdt"
+          style="
+            width: 2.5%;
+            height: 10px;
+            background-color: #2a76dd;
+            border-radius: 10px;
+            float: left;
+          "
+        ></div>
+      </div>
+      <select id="direction" style="width: 50px; height: 25px">
+        <option value="zheng">正向</option>
+        <option value="fan">反向</option>
+      </select>
+      <button
+        id="jiasu"
+        style="width: 100px; height: 50px; margin-top: 80px; margin-left: 30px"
+        onclick="quick()"
+      >
+        加速
+      </button>
+      <button
+        id="jiansu"
+        style="width: 100px; height: 50px; margin-top: 80px; margin-left: 30px"
+        onclick="slow()"
+      >
+        减速
+      </button>
+    </div>
+  </body>
+</html>
